@@ -38,10 +38,11 @@ function wait(fn, timeout, interval = 500) {
                 } else {
                     if (timeout && (new Date().getTime() - start_ts) > timeout) {
                         reject({ code: 1, msg: 'timeout' });
-                    } else {
-                        await sleep(interval);
-                        loop();
-                    }
+                    } 
+                    // else {
+                    //     await sleep(interval);
+                    //     loop();
+                    // }
                 }
             } catch (error) {
                 log(`wait error`, error);
