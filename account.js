@@ -43,9 +43,9 @@ function getPathForIndex(
 }
 
 function getIndexForPath(path, baseDerivationPath) {
-    if (!path.startsWith(baseDerivationPath)) {
-        throw "path should begin with baseDerivationPath"
-    }
+    // if (!path.startsWith(baseDerivationPath)) {
+    //     throw "path should begin with baseDerivationPath"
+    // }
     const index = path.substring(path.lastIndexOf("/") + 1)
     return parseInt(index)
 }
