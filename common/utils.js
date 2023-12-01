@@ -63,7 +63,7 @@ function wait123(fn, timeout, interval = 500) {
                     if (timeout && (new Date().getTime() - start_ts) > timeout) {
                         reject({ code: 1, msg: 'timeout' });
                     } else {
-                        await sleep(interval);
+                        await sleep(500);
                         loop();
                     }
                 }
