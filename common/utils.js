@@ -50,6 +50,29 @@ function wait(fn, timeout, interval = 500) {
         })();
     });
 };
+function wait123(fn, timeout, interval = 500) {
+    return new Promise(async (resolve, reject) => {
+        const start_ts = new Date().getTime();
+        (async function loop() {
+            try {
+                const result = await fn();
+                if (result === true) {
+                    resolve();
+                } else {
+                    if (timeout && (new Date().getTime() - start_ts) > timeout) {
+                        reject({ code: 1, msg: 'timeout' });
+                    } else {
+                        await sleep(interval);
+                        loop();
+                    }
+                }
+            } catch (error) {
+                log(`wait error`, error);
+                reject({ code: -1, error });
+            }
+        })();
+    });
+};
 
 module.exports = {
     json2Obj,

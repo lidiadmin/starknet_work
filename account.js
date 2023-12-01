@@ -123,6 +123,26 @@ function getBraavos(mnemonic, accountIndex) {
     return { address: getChecksumAddress(contractAddress), privateKey: groundKey };
 };
 
+function getBraavos123(mnemonic, accountIndex) {
+    const { starkPair, groundKey } = getBraavosGroundKey(mnemonic, accountIndex);
+    const starkKeyPub = ec.getStarkKey(starkPair);
+    const accountClassHash = "1390726910323976264396851446996494490757233897803493337751952271375342730526";
+    const INITIALIZER_SELECTOR = "0x2dd76e7ad84dbed81c314ffe5e7a7cacfb8f4836f01af4e913f275f89a3de1a"
+    const accountConstructorCallData = stark.compileCalldata(
+        {
+            implementation_address: "0x5aa23d5bb71ddaa783da7ea79d405315bafa7cf0387a74f4593578c3e9e6570",
+            initializer_selector: INITIALIZER_SELECTOR,
+            calldata: [starkKeyPub]
+        }
+    );
+    const contractAddress = hash.calculateContractAddressFromHash(
+        starkKeyPub,
+        accountClassHash,
+        accountConstructorCallData,
+        0
+    );
+    return { address: getChecksumAddress(contractAddress), privateKey: groundKey };
+};
 (async () => {
     //这里是调用示例
     //实际使用前请在钱包插件中多验证几个生成的钱包，没问题后再批量使用，尽量做小额交互，避免意外出现的损失
