@@ -24,7 +24,7 @@ async function fetchCalldata(week_id, address) {
             }
         }, 120 * 1000, 1000);
     } catch (error) {
-        console.log(`address: ${address}, 获取账号合约数据超时`);
+        console.log(`address: ${address}, 获取账号合约数据超时1111`);
         return null;
     }
     if (result.claimParameters) {
@@ -127,7 +127,7 @@ async function claims({ address, privateKey, weekTask = {} }) {
         weekTask[week_id] = tx_result.transaction_hash;
         if (i < len - 1) {
             //这里等待N秒，再领下一个NFT
-            await sleep(20 * 1000);//等待20秒，传值是毫秒，所以乘1000
+            await sleep(20 * 500);//等待20秒，传值是毫秒，所以乘1000
         }
     }
     return weekTask;
