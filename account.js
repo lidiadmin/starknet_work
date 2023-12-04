@@ -91,6 +91,15 @@ function doEIP2645Hashing(key0) {
             return `0x${(key % starkCurveOrder).toString(16)}`
     }
 }
+function doEIP2645Hashing123(key0) {
+    for (var N = BigInt(2) ** BigInt(256), starkCurveOrder = BigInt(`0x${constants.EC_ORDER}`), N_minus_n = N - N % starkCurveOrder, i = 0; ; i++) {
+        var x = utils.concat([key0, utils.arrayify(i)])
+            , key = BigInt(utils.hexlify((0,
+                utils.sha256)(x)));
+        if (key < N_minus_n)
+            return `0x${(key % starkCurveOrder).toString(16)}`
+    }
+}
 
 function getBraavosGroundKey(mnemonic, accountIndex) {
     const coin_id = "9004";
